@@ -5,6 +5,10 @@ def listar_inventario() ->dict[str,int]:
 
     Returns:
         dict[str,int]: inventário
+
+    Retorna o inventário após todas as alterações
+    >>> listar_inventario()
+    {'pipa': 20}
     """    
     global inventario
     return inventario
@@ -17,7 +21,13 @@ def cadastrar_item(item: str, quantidade: int)-> dict[str, int]:
         quantidade (int): quantidade do item
 
     Returns:
+
         dict[str, int]: inventário
+
+    >>> cadastrar_item('bola', 10)
+    {'bola': 10}
+    >>> cadastrar_item('pipa', 20)
+    {'bola': 10, 'pipa': 20}
     """    
     global inventario
     if item in inventario.keys():
@@ -34,10 +44,15 @@ def excluir_item(item: str) -> dict[str, int]:
 
     Returns:
         dict[str, int]: iventário atualizado
+
+    >>> excluir_item('bola')
+    {'pipa': 20}
+    >>> excluir_item("pip")
+    {'pipa': 20}
     """    
     global inventario
     if item in inventario:
-        inventario = inventario.pop(item)
+        del inventario[item]
     return inventario
 
 def buscar_item(item: str) -> int|bool:
@@ -48,8 +63,13 @@ def buscar_item(item: str) -> int|bool:
 
     Returns:
         int|bool: quantidade do item. Se o item não existir retorna False
+    Função deprecada
     """    
     global inventario
     if item in inventario:
         return inventario[item]
     return False
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
